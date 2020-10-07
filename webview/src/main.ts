@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2018 TypeFox and others.
+ * Copyright (c) 2020 TypeFox and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -13,19 +13,18 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
+import 'reflect-metadata';
+import 'sprotty-vscode-webview/css/sprotty-vscode.css';
 
-import * as vscode from 'vscode';
-import { StatesLspVscodeExtension } from './states-lsp-extension';
-import { SprottyLspVscodeExtension } from 'sprotty-vscode/lib/lsp';
+import { SprottyDiagramIdentifier, SprottyStarter } from 'sprotty-vscode-webview';
 
-let extension: SprottyLspVscodeExtension;
+import { createStateDiagramContainer } from './di.config';
 
-export function activate(context: vscode.ExtensionContext) {
-    extension = new StatesLspVscodeExtension(context);
+export class StatesSprottyStarter extends SprottyStarter {
+
+    createContainer(diagramIdentifier: SprottyDiagramIdentifier) {
+        return createStateDiagramContainer(diagramIdentifier.clientId);
+    }
 }
 
-export function deactivate(): Thenable<void> {
-    if (!extension)
-       return Promise.resolve(undefined);
-    return extension.deactivateLanguageClient();
-}
+new StatesSprottyStarter();

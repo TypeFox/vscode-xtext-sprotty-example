@@ -7,7 +7,7 @@
         "type": "git",
         "url": "https://github.com/eclipse/sprotty-vscode"
     },
-    "version": "0.0.3",
+    "version": "0.0.4",
     "engines": {
         "vscode": "^1.46.0"
     },
@@ -34,18 +34,122 @@
                 "scopeName": "source.sm",
                 "path": "./syntaxes/states.tmLanguage.json"
             }
+        ],
+        "commands": [
+            {
+                "command": "states.diagram.open",
+                "title": "Open in Diagram",
+                "icon": "$(symbol-structure)",
+                "category": "States Diagram"
+            },
+            {
+                "command": "states.diagram.fit",
+                "title": "Fit to Screen",
+                "category": "States Diagram"
+            },
+            {
+                "command": "states.diagram.center",
+                "title": "Center selection",
+                "category": "States Diagram"
+            },
+            {
+                "command": "states.diagram.delete",
+                "title": "Delete selected element",
+                "category": "States Diagram"
+            },
+            {
+                "command": "states.diagram.export",
+                "title": "Export diagram to SVG",
+                "category": "States Diagram"
+            }
+        ],
+        "menus": {
+            "commandPalette": [
+                {
+                    "command": "states.diagram.open",
+                    "when": "editorLangId == 'states'"
+                },
+                {
+                    "command": "states.diagram.fit",
+                    "when": "states-diagram-focused"
+                },
+                {
+                    "command": "states.diagram.center",
+                    "when": "states-diagram-focused"
+                },
+                {
+                    "command": "states.diagram.delete",
+                    "when": "states-diagram-focused"
+                },
+                {
+                    "command": "states.diagram.export",
+                    "when": "states-diagram-focused"
+                }
+            ],
+            "editor/context": [
+                {
+                    "command": "states.diagram.open",
+                    "when": "editorLangId == 'states'",
+                    "group": "navigation"
+                }
+            ],
+            "editor/title": [
+                {
+                    "command": "states.diagram.open",
+                    "when": "editorLangId == 'states'",
+                    "group": "navigation"
+                }
+            ],
+            "explorer/context": [
+                {
+                    "command": "states.diagram.open",
+                    "when": "resourceExtname == '.sm'",
+                    "group": "navigation"
+                }
+            ]
+        },
+        "keybindings": [
+            {
+                "key": "alt+f",
+                "mac": "alt+f",
+                "command": "states.diagram.fit",
+                "when": "states-diagram-focused"
+            },
+            {
+                "key": "alt+c",
+                "mac": "alt+c",
+                "command": "states.diagram.center",
+                "when": "states-diagram-focused"
+            },
+            {
+                "key": "alt+e",
+                "mac": "alt+e",
+                "command": "states.diagram.export",
+                "when": "states-diagram-focused"
+            },
+            {
+                "key": "delete",
+                "mac": "delete",
+                "command": "states.diagram.delete",
+                "when": "states-diagram-focused"
+            }
         ]
     },
     "activationEvents": [
-        "onLanguage:states"
+        "onLanguage:states",
+        "onCommand:states.diagram.open"
     ],
     "files": [
         "lib",
         "extension",
         "server",
-        "syntaxes"
+        "syntaxes",
+        "webview"
     ],
     "main": "./pack/states-extension",
+    "dependencies": {
+        "sprotty-vscode": "^0.1.0"
+    },
     "devDependencies": {
         "@types/node": "^8.0.0",
         "@types/vscode": "1.46.0",
