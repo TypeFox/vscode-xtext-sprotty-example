@@ -7,7 +7,7 @@
         "type": "git",
         "url": "https://github.com/eclipse/sprotty-vscode"
     },
-    "version": "0.0.2",
+    "version": "0.0.3",
     "engines": {
         "vscode": "^1.46.0"
     },
@@ -47,6 +47,7 @@
     ],
     "main": "./pack/states-extension",
     "devDependencies": {
+        "@types/node": "^8.0.0",
         "@types/vscode": "1.46.0",
         "rimraf": "^2.6.3",
         "source-map-loader": "^1.0.2",

@@ -15,11 +15,40 @@
  ********************************************************************************/
 
 import * as vscode from 'vscode';
+import * as path from 'path';
+
+import { LanguageClient, LanguageClientOptions, ServerOptions } from 'vscode-languageclient';
+
+let languageClient: LanguageClient | undefined = undefined;
 
 export function activate(context: vscode.ExtensionContext) {
-    vscode.window.showInformationMessage('Activating states extension');
+    languageClient = activateLanguageClient(context);
+}
+
+function activateLanguageClient(context: vscode.ExtensionContext): LanguageClient {
+    const executable = process.platform === 'win32' ? 'states-language-server.bat' : 'states-language-server';
+    const languageServerPath =  path.join('server', 'states-language-server', 'bin', executable);
+    const serverLauncher = context.asAbsolutePath(languageServerPath);
+    const serverOptions: ServerOptions = {
+        run: {
+            command: serverLauncher,
+            args: ['-trace']
+        },
+        debug: {
+            command: serverLauncher,
+            args: ['-trace']
+        }
+    };
+    const clientOptions: LanguageClientOptions = {
+        documentSelector: [{ scheme: 'file', language: 'states' }],
+    };
+    languageClient = new LanguageClient('statesLanguageClient', 'States Language Server', serverOptions, clientOptions);
+    languageClient.start();
+    return languageClient;
 }
 
 export function deactivate(): Thenable<void> {
-    return Promise.resolve(undefined);
+    if (!languageClient)
+       return Promise.resolve(undefined);
+    return languageClient.stop();
 }
