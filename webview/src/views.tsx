@@ -17,9 +17,9 @@
 /** @jsx svg */
 import { svg } from 'snabbdom-jsx';
 
+import { VNode } from "snabbdom/vnode";
+import { Point, PolylineEdgeView, RenderingContext, SEdge, toDegrees, IView, SPort } from "sprotty";
 import { injectable } from 'inversify';
-import { VNode } from 'snabbdom/vnode';
-import { Point, PolylineEdgeView, RenderingContext, SEdge, toDegrees } from 'sprotty';
 
 @injectable()
 export class PolylineArrowEdgeView extends PolylineEdgeView {
@@ -35,6 +35,13 @@ export class PolylineArrowEdgeView extends PolylineEdgeView {
 
     angle(x0: Point, x1: Point): number {
         return toDegrees(Math.atan2(x1.y - x0.y, x1.x - x0.x));
+    }
+}
+
+@injectable()
+export class TriangleButtonView implements IView {
+    render(model: SPort, context: RenderingContext, args?: object): VNode {
+        return <path class-sprotty-button={true} d="M 0,0 L 8,4 L 0,8 Z" />;
     }
 }
 

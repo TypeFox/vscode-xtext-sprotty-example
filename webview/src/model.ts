@@ -13,18 +13,13 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
+
 import { injectable } from 'inversify';
 import {
-    EdgePlacement,
-    ManhattanEdgeRouter,
-    SChildElement,
-    SEdge,
-    SGraphFactory,
-    SLabel,
-    SModelElementSchema,
-    SParentElement,
+    Action, CreateElementAction, CreatingOnDrag, EdgePlacement, ManhattanEdgeRouter,
+    RectangularNode, RectangularPort, SChildElement, SEdge, SGraphFactory, SLabel,
+    SModelElementSchema, SParentElement, SRoutableElement
 } from 'sprotty';
-
 
 
 @injectable()
@@ -42,5 +37,19 @@ export class StatesModelFactory extends SGraphFactory {
             };
         }
         return child;
+    }
+}
+
+export class StatesNode extends RectangularNode {
+    canConnect(routable: SRoutableElement, role: string) {
+        return true;
+    }
+}
+
+export class CreateTransitionPort extends RectangularPort implements CreatingOnDrag {
+    createAction(id: string): Action {
+        return new CreateElementAction(this.root.id, <SModelElementSchema> {
+            id, type: 'edge', sourceId: this.parent.id, targetId: this.id
+        });
     }
 }

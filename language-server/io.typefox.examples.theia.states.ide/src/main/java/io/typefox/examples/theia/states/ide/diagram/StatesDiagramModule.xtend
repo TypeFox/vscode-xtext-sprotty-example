@@ -17,4 +17,7 @@ class StatesDiagramModule extends DefaultDiagramModule {
 		StatesLayoutEngine
 	}
 	
+	override bindIDiagramServer() {
+		StatesDiagramServer
+	}	
 }
