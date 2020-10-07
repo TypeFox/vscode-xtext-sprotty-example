@@ -7,7 +7,7 @@
         "type": "git",
         "url": "https://github.com/eclipse/sprotty-vscode"
     },
-    "version": "0.0.1",
+    "version": "0.0.2",
     "engines": {
         "vscode": "^1.46.0"
     },
@@ -36,10 +36,34 @@
             }
         ]
     },
+    "activationEvents": [
+        "onLanguage:states"
+    ],
     "files": [
+        "lib",
+        "extension",
+        "server",
         "syntaxes"
     ],
+    "main": "./pack/states-extension",
+    "devDependencies": {
+        "@types/vscode": "1.46.0",
+        "rimraf": "^2.6.3",
+        "source-map-loader": "^1.0.2",
+        "ts-loader": "^8.0.3",
+        "tslint": "^5.11.0",
+        "typescript": "3.8.3",
+        "vscode-languageclient": "^5.2.1",
+        "vscode-languageserver": "^5.2.1",
+        "webpack": "^4.44.1",
+        "webpack-cli": "^3.3.12"
+    },
     "scripts": {
+        "prepare": "yarn run clean && yarn run build",
+        "clean": "rimraf extension/lib extension/pack",
+        "build": "tsc && webpack --mode=development",
+        "watch": "tsc -w",
+        "watch:webpack": "webpack --mode=development --watch",
         "publish": "vsce publish"
     }
 }
