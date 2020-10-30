@@ -1,0 +1,7 @@
+node_modules
+lib
+*.log
+pack
+*.vsix
+src-gen/
+*.tgz

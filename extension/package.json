@@ -1,0 +1,45 @@
+{
+    "name": "vscode-xtext-sprotty-example",
+    "displayName": "States Example",
+    "description": "An example Xtext-based DSL with Sprotty diagrams for statemachines",
+    "publisher": "TypeFox",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/eclipse/sprotty-vscode"
+    },
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.46.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [
+            {
+                "id": "states",
+                "aliases": [
+                    "states",
+                    "sm"
+                ],
+                "extensions": [
+                    ".sm"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "states",
+                "scopeName": "source.sm",
+                "path": "./syntaxes/states.tmLanguage.json"
+            }
+        ]
+    },
+    "files": [
+        "syntaxes"
+    ],
+    "scripts": {
+        "publish": "vsce publish"
+    }
+}
