@@ -3,6 +3,7 @@
     "displayName": "States Example",
     "description": "An example Xtext-based DSL with Sprotty diagrams for statemachines",
     "publisher": "TypeFox",
+    "license": "EPL-2.0",
     "repository": {
         "type": "git",
         "url": "https://github.com/eclipse/sprotty-vscode"
